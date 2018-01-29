@@ -193,9 +193,6 @@ export class Documenter implements vs.Disposable {
             // We don't want description tag, probably because we want to free type the description. So add space for that.
             sb.appendSnippetTabstop();
             sb.appendLine();
-
-            // Jump a line after description free-type area before showing other tags
-            sb.appendLine();
         }
     }
 
@@ -367,14 +364,14 @@ export class Documenter implements vs.Disposable {
 
     private _inferParamTypeFromName(name: string): string {
         if (this._isNameFunctionLike(name)) {
-            return "{function}";
+            return "function";
         }
 
         if (this._isNameBooleanLike(name)) {
-            return "{boolean}";
+            return "boolean";
         }
 
-        return "{any}";
+        return "any";
     }
 
     private _emitParameters(sb: utils.SnippetStringBuilder, node:
@@ -390,21 +387,21 @@ export class Documenter implements vs.Disposable {
             const isArgs = !!parameter.dotDotDotToken;
             const initializerValue = parameter.initializer ? parameter.initializer.getText() : null;
 
-            let typeName = "{any}";
+            let typeName = "any";
 
             if (includeTypes()) {
                 if (parameter.initializer && !parameter.type) {
                     if (/^[0-9]/.test(initializerValue)) {
-                        typeName = "{number}";
+                        typeName = "number";
                     }
                     else if (initializerValue.indexOf("\"") !== -1 ||
                         initializerValue.indexOf("'") !== -1 ||
                         initializerValue.indexOf("`") !== -1) {
-                        typeName = "{string}";
+                        typeName = "string";
                     }
                     else if (initializerValue.indexOf("true") !== -1 ||
                         initializerValue.indexOf("false") !== -1) {
-                        typeName = "{boolean}";
+                        typeName = "boolean";
                     }
                 }
                 else if (parameter.type) {
@@ -421,7 +418,9 @@ export class Documenter implements vs.Disposable {
             sb.append("@param ");
 
             if (includeTypes()) {
-                sb.append(typeName + " ");
+                sb.append("{");
+                sb.appendSnippetPlaceholder(typeName);
+                sb.append("} ");
             }
 
             if (isOptional) {
@@ -451,15 +450,15 @@ export class Documenter implements vs.Disposable {
 
     private _getHungarianNotationType(name: string): string {
         switch (name.charAt(0)) {
-            case "a": return "{Array}";
-            case "b": return "{boolean}";
-            case "e": return "{Object}"; // Enumeration
-            case "f": return "{function}";
-            case "i": return "{number}";
-            case "m": return "{Object}"; // Map
-            case "o": return "{Object}";
-            case "s": return "{string}";
-            default: return "{any}";
+            case "a": return "Array";
+            case "b": return "boolean";
+            case "e": return "Object"; // Enumeration
+            case "f": return "function";
+            case "i": return "number";
+            case "m": return "Object"; // Map
+            case "o": return "Object";
+            case "s": return "string";
+            default: return "any";
         }
     }
 

@@ -187,14 +187,14 @@ export function formatTypeName(typeName: string) {
     }
 
     if (typeName === "any") {
-        return "{*}";
+        return "*";
     }
 
     if (typeName.indexOf("|") !== -1 || typeName.indexOf("&") !== -1) {
         typeName = "(" + typeName + ")";
     }
 
-    return "{" + typeName + "}";
+    return typeName;
 }
 
 export class SnippetStringBuilder {
