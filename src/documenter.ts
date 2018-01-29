@@ -347,7 +347,7 @@ export class Documenter implements vs.Disposable {
 
     private _emitReturns(sb: utils.SnippetStringBuilder, node: ts.MethodDeclaration | ts.FunctionDeclaration | ts.FunctionExpression | ts.ArrowFunction) {
         if (utils.findNonVoidReturnInCurrentScope(node) || (node.type && node.type.getText() !== "void")) {
-            sb.append("@returns");
+            sb.append("@return");
             if (includeTypes() && node.type) {
                 sb.append(" " + utils.formatTypeName(node.type.getText()));
             }
@@ -359,6 +359,8 @@ export class Documenter implements vs.Disposable {
             sb.appendSnippetTabstop();
 
             sb.appendLine();
+        } else {
+            sb.append("@return {void}");
         }
 
     }
