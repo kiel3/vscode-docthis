@@ -1,6 +1,6 @@
 {
-  "name": "docthis",
-  "displayName": "Document This",
+  "name": "docthis-shockoe",
+  "displayName": "Document This Shockoe",
   "description": "Automatically generates detailed JSDoc comments in TypeScript and JavaScript files.",
   "version": "0.6.2",
   "publisher": "joelday",
