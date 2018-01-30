@@ -415,7 +415,7 @@ export class Documenter implements vs.Disposable {
                 }
             }
 
-            sb.append("@param ");
+            sb.append("@param  ");
 
             if (includeTypes()) {
                 sb.append("{");
